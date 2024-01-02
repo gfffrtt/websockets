@@ -1,0 +1,23 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model Session {
+    id          String @id @default(cuid())
+    userId      String @map("user_id")
+    accessToken String @map("access_token")
+
+    @@map("session")
+}
+
+model Group {
+    id   String @id @default(cuid())
+    name String
+
+    @@map("group")
+}
