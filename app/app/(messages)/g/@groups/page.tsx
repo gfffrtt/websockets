@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { LuText } from "react-icons/lu";
 import { MdOutlineSettings } from "react-icons/md";
-import { db } from "../../db/connection";
+import { db } from "../../../db/connection";
+import { Settings } from "./components/settings";
 
 export default async function Page() {
   const groups = await db.group.findMany();
@@ -14,10 +15,7 @@ export default async function Page() {
             <LuText className="h-6 w-6" />
             <span className="">Chat App</span>
           </Link>
-          <button className="ml-auto h-8 w-8">
-            <MdOutlineSettings className="h-4 w-4" />
-            <span className="sr-only">Settings</span>
-          </button>
+          <Settings />
         </div>
         <div className="flex-1 overflow-auto py-2">
           {groups.map((group) => (
@@ -25,7 +23,7 @@ export default async function Page() {
               <div className="space-y-4">
                 <Link
                   className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                  href="#"
+                  href={`/g/${group.id}`}
                 >
                   <div className="h-9 w-9"></div>
                   {group.name}

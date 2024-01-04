@@ -3,8 +3,16 @@
 import { FormEvent, useState } from "react";
 import { Button } from "../../components/button";
 import { Input } from "../../components/input";
-import { signin } from "../functions/signin";
-import { useRouter } from "next/router";
+import { signIn } from "../functions/signin";
+import { useRouter } from "next/navigation";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../components/card";
+import { Label } from "../../components/label";
 
 export type SignInData = {
   email: string;
@@ -23,7 +31,7 @@ export const SignInForm = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    const status = await signin(signInData);
+    const status = await signIn(signInData);
 
     if (status === "SIGNEDIN") router.push("/g");
     setError("Failed while signing in, please try again");
@@ -31,34 +39,48 @@ export const SignInForm = () => {
   };
 
   return (
-    <form
-      onSubmit={(e) => handleSubmit(e)}
-      className="border shadow-sm rounded-lg px-6 py-4"
-    >
-      {error && (
-        <div className="text-red-600 text-center ring-2 ring-offset-2 ring-red-600 rounded-md mb-4">
-          {error}
-        </div>
-      )}
-      <div>
-        <label>Email:</label>
-        <Input
-          onChange={(e) =>
-            setSignInData({ ...signInData, email: e.target.value })
-          }
-          value={signInData.email}
-        />
-      </div>
-      <div>
-        <label>Password</label>
-        <Input
-          onChange={(e) =>
-            setSignInData({ ...signInData, password: e.target.value })
-          }
-          value={signInData.password}
-        />
-      </div>
-      <Button variant="outline">Sign in</Button>
-    </form>
+    <main className="flex flex-col items-center justify-center min-h-screen py-12 bg-gray-50 dark:bg-gray-900">
+      <Card className="w-full max-w-md mx-auto">
+        <CardHeader>
+          <CardTitle>Sign in</CardTitle>
+          <CardDescription>Create on login in into an account.</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <form className="space-y-4" onSubmit={(e) => handleSubmit(e)}>
+            <div className="space-y-1">
+              <Label>Email</Label>
+              <Input
+                placeholder="Enter your email"
+                value={signInData.email}
+                onChange={(e) =>
+                  setSignInData({
+                    ...signInData,
+                    email: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="space-y-1">
+              <Label>Password</Label>
+              <Input
+                placeholder="Enter your password"
+                value={signInData.password}
+                onChange={(e) =>
+                  setSignInData({
+                    ...signInData,
+                    password: e.target.value,
+                  })
+                }
+              />
+            </div>
+            <div className="flex justify-center">
+              <Button className="bg-black text-white" type="submit">
+                Sign in
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </main>
   );
 };

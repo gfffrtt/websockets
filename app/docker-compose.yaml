@@ -1,17 +1,16 @@
 version: '3.8'
 
 services:
-  db:
-    container_name: db
+  app-db:
+    container_name: app-db
     image: postgres:latest
     environment:
-      POSTGRES_DB: app-mentallize
+      POSTGRES_DB: app
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
-    volumes:
-      - ./prisma/data:/var/lib/postgresql/data
+      PGPORT: 5433
     ports:
-      - "5432:5432"
+      - "5433:5433"
     networks:
       - development
   
@@ -20,14 +19,13 @@ services:
     build:
       context: .
     ports:
-      - "80:3000"
-      - "5555:5555"
+      - "3000:3000"
     volumes:
       - .:/app
     networks:
       - development
     depends_on:
-      - db
+      - app-db
 
 networks:
   development:

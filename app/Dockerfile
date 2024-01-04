@@ -10,8 +10,7 @@ RUN bun install
 
 COPY . .
 
-ENV DATABASE_URL postgresql://root:root@db:5432/app?schema=public
-ENV BASE_URL http://localhost
+ENV DATABASE_URL postgresql://root:root@app-db:5433/app?schema=public
 ENV NODE_ENV development
 
 RUN bun db:generate

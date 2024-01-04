@@ -7,13 +7,13 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 
 export const Input = ({ type, onChange, value, className }: InputProps) => {
   return (
-    <div className={"text-black relative text-sm"}>
+    <div>
       <input
         type={type}
         onChange={onChange}
         value={value}
         className={cn(
-          "flex w-full items-center justify-center outline-none rounded-md text-lg font-medium ring-2 ring-black ring-offset-2",
+          "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
           className
         )}
       />

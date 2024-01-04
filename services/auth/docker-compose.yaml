@@ -1,15 +1,17 @@
 version: '3'
 
 services:
-  app:
+  auth-app:
+    container_name: auth-app
     build:
       context: .
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      - auth-db
 
-  db:
+  auth-db:
+    container_name: auth-db
     image: postgres:latest
     environment:
       POSTGRES_DB: app 
