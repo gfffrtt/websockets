@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  messages-app:
+    container_name: messages-app
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - messages-db
+
+  messages-db:
+    container_name: messages-db
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: app 
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5434:5434"
